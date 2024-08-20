@@ -1,0 +1,2 @@
+export const POPULAR_ANIME = "POPULAR ANIME";
+export const FAVORITE = "FAVORITE ANIME";
