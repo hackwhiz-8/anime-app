@@ -1,6 +1,8 @@
-import { View, Text, FlatList, Image, StyleSheet } from 'react-native'
+import { View, Text, FlatList, Image, StyleSheet, Pressable, TouchableOpacity } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import Category from './Category'
+import { Link } from 'expo-router'
+import { router } from 'expo-router';
 
 export default function ItemByCategory() {
     // const [category, setcategory] = useState('')
@@ -49,19 +51,24 @@ export default function ItemByCategory() {
                 {
                     data.map((item, index) => {
                         return (
-                            <View key={index} style={{ borderWidth: 1, borderRadius: 15, margin: 5, backgroundColor: 'black', width: 170 }} >
+                            <TouchableOpacity onPress={() => router.push({
+                                pathname: '/cards',
+                                params: {id:item.mal_id}
+                            })}>
+                                <View key={index} style={{ borderWidth: 1, borderRadius: 15, margin: 5, backgroundColor: 'black', width: 170 }} >
 
-                                <Image source={{ uri: item.images?.jpg?.large_image_url }}
-                                    style={styles?.SliderImage}
-                                />
-                                <Text style={{ textAlign: 'center', color: 'white', textAlign: 'center', padding: 10, fontSize: 10, }}>{item?.titles[0].title}</Text>
-                            </View>
+                                    <Image source={{ uri: item.images?.jpg?.large_image_url }}
+                                        style={styles?.SliderImage}
+                                    />
+                                    <Text style={{ textAlign: 'center', color: 'white', textAlign: 'center', padding: 10, fontSize: 10, }}>{item?.titles[0].title}</Text>
+                                </View>
+                            </TouchableOpacity>
                         )
                     })
                 }
             </View>
 
-        </View>
+        </View >
     )
 }
 

@@ -1,5 +1,6 @@
-import { View, Text, Pressable, FlatList, Image, StyleSheet, Dimensions } from 'react-native'
+import { View, Text, Pressable, FlatList, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
+import { router } from 'expo-router'
 
 export default function Slider() {
 
@@ -45,13 +46,18 @@ export default function Slider() {
                 onRefresh={fetchData}
                 showsHorizontalScrollIndicator={false}
                 renderItem={({ item, index }) => (
-                    <View key={index} style={{ borderWidth: 1, borderRadius: 15, margin: 10, backgroundColor: 'black' }} >
+                    <TouchableOpacity onPress={() => router.push({
+                        pathname: '/cards',
+                        params: { id: item.id }
+                    })} >
+                        <View key={index} style={{ borderWidth: 1, borderRadius: 15, margin: 10, backgroundColor: 'black' }} >
 
-                        <Image source={{ uri: item.attributes?.coverImage?.small }}
-                            style={styles?.SliderImage}
-                        />
-                        {/* <Text style={{ fontSize: 16, color: 'white', textAlign: 'center', padding: 10, fontSize: 20, }}>{item.attributes?.slug}</Text> */}
-                    </View>
+                            <Image source={{ uri: item.attributes?.coverImage?.small }}
+                                style={styles?.SliderImage}
+                            />
+                            {/* <Text style={{ fontSize: 16, color: 'white', textAlign: 'center', padding: 10, fontSize: 20, }}>{item.attributes?.slug}</Text> */}
+                        </View>
+                    </TouchableOpacity>
                 )
 
                 }
@@ -67,7 +73,7 @@ const styles = StyleSheet.create({
         height: 100,
         // borderRadius: 15,
         marginRight: 15,
-        margin:20 ,
+        margin: 20,
         objectFit: 'contain'
     }
 })

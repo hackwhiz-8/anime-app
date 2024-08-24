@@ -1,5 +1,6 @@
-import { View, Text, FlatList, Image, StyleSheet } from 'react-native'
+import { View, Text, FlatList, Image, StyleSheet, Pressable } from 'react-native'
 import React, { useState, useEffect } from 'react'
+import { useRouter } from 'expo-router';
 
 export default function Upcoming() {
   const [data, setdata] = useState([]);
@@ -7,6 +8,8 @@ export default function Upcoming() {
   useEffect(() => {
     fetchData();
   }, [])
+
+  const { router } = useRouter();
 
   const fetchData = async () => {
     try {
@@ -44,13 +47,13 @@ export default function Upcoming() {
         onRefresh={fetchData}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item, index }) => (
-          <View key={index} style={{ borderWidth: 1, borderRadius: 15, margin: 5, backgroundColor: 'black', width: 130 }} >
+          <Pressable  key={index} style={{ borderWidth: 1, borderRadius: 15, margin: 5, backgroundColor: 'black', width: 130 }} >
 
             <Image source={{ uri: item.images?.jpg?.large_image_url }}
               style={styles?.SliderImage}
             />
             <Text style={{ textAlign: 'center', color: 'white', textAlign: 'center', padding: 10, fontSize: 10, }}>{item?.titles[0].title}</Text>
-          </View>
+          </Pressable>
         )
 
         }
